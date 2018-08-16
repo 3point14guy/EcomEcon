@@ -1,0 +1,23 @@
+<h1>Your Cart</h1>
+
+
+<div>
+		<% if  @line_items.length != 0 %>
+			<ul>
+				<% @line_items.each do |line_item| %>
+						<li><%= line_item.product.name %> 
+							<%= link_to 'Destroy', cart_delete_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+						<li><%= number_to_currency line_item.product.price %></li>
+						<li>Qty: <%= line_item.quantity%> <%= link_to 'Edit', cart_edit_path(line_item) %></li>
+						<li>Subtotal: <%= number_to_currency line_item.line_item_total %></li>
+			</ul>
+				<% end %>
+		<div>
+			<%= link_to "Proceed to Checkout", checkout_path, class: "btn btn-light" %>
+		</div>
+			
+		<% else %>
+			<p>Your cart is Empty.  Please buy lots of stuff. </p>
+			<p><%= link_to "Shop", root_path, class: "btn btn-light"%></p>
+		<% end %>
+</div>
