@@ -5,9 +5,9 @@ Rails.application.routes.draw do
 
   get 'checkout' => 'cart#checkout'
 
-  get 'cart_edit' => 'cart#edit'
+  post 'cart_edit' => 'cart#cart_edit'
 
-  get 'cart_delete' => 'cart#delete'
+  delete 'cart_delete' => 'cart#cart_delete'
 
   devise_for :users
   root 'storefront#all_items'

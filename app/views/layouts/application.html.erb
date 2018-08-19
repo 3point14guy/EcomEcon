@@ -11,7 +11,7 @@
   <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <%= link_to "EcomEcon", root_path, class: "navbar-link" %><span class="sr-only">(current)</span class="trademark"><span>&trade;</span>
+      <span class="trademark"><%= link_to "EcomEcon", root_path, class: "navbar-link" %><span class="sr-only">(current)</span>&trade;</span>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
@@ -42,9 +42,9 @@
             </div>
           </li>
         </ul>
-      </div>
+      
 
-      <div class="navbar-collapse">
+
         <ul class="navbar-nav ml-auto">
           <% if user_signed_in? %>
             <li class="nav-item dropdown"> 
@@ -58,6 +58,7 @@
               </div>
             </li>
           </ul> 
+        </div>
           <% else %>
           <ul class="navbar-nav">
               <li class="nav-item"><%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
@@ -65,9 +66,10 @@
           </ul>
           <% end %>
           <ul class="navbar-nav">
-            <li><%= link_to "", view_order_path, class: "fa fa-shopping-cart fa-2x" %></li>
+            <li><%= link_to "", view_order_path, class: "fa fa-shopping-cart fa-2x" %><span class="count"><%= @cart_count %></span></li>
+
           </ul>
-      </div>
+    
     </nav>
 
   	<div class="container">

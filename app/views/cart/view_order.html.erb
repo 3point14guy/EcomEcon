@@ -6,11 +6,40 @@
 			<ul>
 				<% @line_items.each do |line_item| %>
 						<li><%= line_item.product.name %> 
-							<%= link_to 'Destroy', cart_delete_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+							<%= link_to 'Delete', cart_delete_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
 						<li><%= number_to_currency line_item.product.price %></li>
-						<li>Qty: <%= line_item.quantity%> <%= link_to 'Edit', cart_edit_path(line_item) %></li>
+						<li>Qty: <%= line_item.quantity%> <a href="#" data-toggle="modal" data-target="#modal_<%= line_item.product.id %>"><span class="fa fa-pencil"></span> Edit</a></li>
 						<li>Subtotal: <%= number_to_currency line_item.line_item_total %></li>
 			</ul>
+			<div class="modal fade" id="modal_<%= line_item.product.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"><%= line_item.product.name %></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <% if line_item.product.image.url.nil? == false %>
+              <p><%= image_tag line_item.product.image.url, width: "100%" %></p>
+            <% end %>
+            <p><%= number_to_currency line_item.product.price %></p>
+            <p>Made by <%= line_item.product.brand %></p>
+          </div>
+          <div class="modal-footer">
+            <p>
+              <%= form_tag cart_edit_path do %>
+              	<%= hidden_field_tag :line_item_id, line_item.id %>
+                <%= hidden_field_tag :product_id, line_item.product.id %>
+                <%= number_field_tag :quantity, line_item.quantity, placeholder: "How Many?" %>
+                <%= submit_tag "Update cart", method: :post, class: "btn btn-light" %>
+              <% end %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
 				<% end %>
 		<div>
 			<%= link_to "Proceed to Checkout", checkout_path, class: "btn btn-light" %>
