@@ -24,7 +24,8 @@ class CartController < ApplicationController
   end
 
   def cart_delete
-    @line_item = LineItem.find(params[:line_item_id]).destroy
+    line_item = LineItem.find(params[:line_item_id])
+    line_item.destroy
     redirect_to view_order_path
   end
 

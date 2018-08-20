@@ -1,4 +1,4 @@
-<h1>Your Cart</h1>
+ <h1>Your Cart</h1>
 
 
 <div>
@@ -6,7 +6,7 @@
 			<ul>
 				<% @line_items.each do |line_item| %>
 						<li><%= line_item.product.name %> 
-							<%= link_to 'Delete', cart_delete_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+							<%= link_to 'Delete', cart_delete_path(line_item_id: line_item.id), method: :delete, data: { confirm: 'Are you sure?' } %></li>
 						<li><%= number_to_currency line_item.product.price %></li>
 						<li>Qty: <%= line_item.quantity%> <a href="#" data-toggle="modal" data-target="#modal_<%= line_item.product.id %>"><span class="fa fa-pencil"></span> Edit</a></li>
 						<li>Subtotal: <%= number_to_currency line_item.line_item_total %></li>
